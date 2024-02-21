@@ -1,38 +1,83 @@
+body {
+  background-color: #20232a;
+  color: #61dafb;
+  font-family: 'Arial', sans-serif;
+}
+
 .App {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.header {
   text-align: center;
+  margin-bottom: 20px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.addTask {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
+.inputField {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #61dafb;
+  border-radius: 5px;
+  color: #fff;
   background-color: #282c34;
-  min-height: 100vh;
+  transition: border-color 0.3s ease;
+}
+
+.inputField:hover {
+  border-color: #61dafb;
+}
+
+.addButton {
+  padding: 10px;
+  background-color: #61dafb;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.addButton:hover {
+  background-color: #4fa3d1;
+}
+
+.list {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.taskContainer {
+  background-color: #282c34;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 5px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.buttonContainer {
+  display: flex;
+  gap: 10px;
+}
+
+.editButton,
+.deleteButton {
+  padding: 8px;
+  background-color: #61dafb;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.editButton:hover,
+.deleteButton:hover {
+  background-color: #4fa3d1;
 }
