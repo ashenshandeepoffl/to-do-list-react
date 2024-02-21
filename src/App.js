@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 
 function App() {
@@ -6,6 +6,7 @@ function App() {
   const [newTask, setNewTask] = useState('');
   const [editTask, setEditTask] = useState({ id: null, taskName: '' });
   const [errorMessage, setErrorMessage] = useState('');
+  const [timers, setTimers] = useState({});
 
   const handleChange = (event) => {
     setNewTask(event.target.value);
@@ -37,12 +38,23 @@ function App() {
         updated: null,
       };
       setTodoList([...todoList, task]);
+
+      // Set up a timer for the new task
+      const timerId = setTimeout(() => {
+        showNotification(task.taskName);
+      }, 60000); // Set the timer duration in milliseconds (e.g., 1 minute)
+      
+      setTimers((prevTimers) => ({ ...prevTimers, [task.id]: timerId }));
     }
+
     setNewTask('');
     setErrorMessage('');
   };
 
   const deleteTask = (id) => {
+    // Clear the timer for the task being deleted
+    clearTimeout(timers[id]);
+
     setTodoList(todoList.filter((task) => task.id !== id));
   };
 
@@ -51,6 +63,24 @@ function App() {
     setNewTask(task.taskName);
     setErrorMessage('');
   };
+
+  const showNotification = (taskName) => {
+    // Check if the browser supports notifications
+    if ('Notification' in window) {
+      Notification.requestPermission().then((permission) => {
+        if (permission === 'granted') {
+          new Notification(`Todo Reminder: ${taskName}`);
+        }
+      });
+    }
+  };
+
+  // Cleanup timers on component unmount
+  useEffect(() => {
+    return () => {
+      Object.values(timers).forEach(clearTimeout);
+    };
+  }, [timers]);
 
   return (
     <div className="App">
